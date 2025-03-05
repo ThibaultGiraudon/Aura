@@ -18,7 +18,20 @@ class AuthenticationViewModel: ObservableObject {
     }
     
     func login() {
-        print("login with \(username) and \(password)")
-        onLoginSucceed()
+        Task {
+            do {
+                let jsonData: [String: String] = try await API.shared.call(endPoint: API.AuthEndPoints.authenticate(username: username, password: password))
+                
+                guard let token = jsonData["token"] else {
+                    print("Can't find token")
+                    return
+                }
+                
+                API.shared.token = token
+                onLoginSucceed()
+            } catch {
+                print("Login failed: \(error)")
+            }
+        }
     }
 }
