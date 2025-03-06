@@ -6,5 +6,6 @@ public func configure(_ app: Application) async throws {
     // app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
 
     // register routes
+    app.http.server.configuration.hostname = "192.168.1.59"
     try routes(app)
 }
