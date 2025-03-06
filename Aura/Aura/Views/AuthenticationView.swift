@@ -16,6 +16,8 @@ struct AuthenticationView: View {
     let gradientEnd = Color(hex: "#94A684").opacity(0.0) // Fades to transparent
 
     @ObservedObject var viewModel: AuthenticationViewModel
+    
+    @FocusState var focused
 
     
     var body: some View {
@@ -42,11 +44,13 @@ struct AuthenticationView: View {
                             .autocapitalization(.none)
                             .keyboardType(.emailAddress)
                             .disableAutocorrection(true)
+                            .focused($focused)
                         
                         SecureField("Mot de passe", text: $viewModel.password)
                             .padding()
                             .background(Color(UIColor.secondarySystemBackground))
                             .cornerRadius(8)
+                            .focused($focused)
                         
                         if viewModel.showError {
                             Text(viewModel.alertMessage)
@@ -55,6 +59,7 @@ struct AuthenticationView: View {
                         }
                         
                         Button(action: {
+                            focused = false
                             viewModel.login()
                         }) {
                             Text("Se connecter")
@@ -69,7 +74,7 @@ struct AuthenticationView: View {
                     .padding(.horizontal, 40)
                 }
         .onTapGesture {
-            self.endEditing(true)  // This will dismiss the keyboard when tapping outside
+            focused = false
         }
         .alert(viewModel.alertMessage, isPresented: $viewModel.showAlert) {
             Button("OK") {

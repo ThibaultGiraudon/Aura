@@ -12,6 +12,8 @@ struct MoneyTransferView: View {
 
     @State private var animationScale: CGFloat = 1.0
 
+    @FocusState var focused
+    
     var body: some View {
         VStack(spacing: 20) {
             // Adding a fun header image
@@ -42,6 +44,7 @@ struct MoneyTransferView: View {
                     .autocapitalization(.none)
                     .keyboardType(.emailAddress)
                     .disableAutocorrection(true)
+                    .focused($focused)
             }
             
             VStack(alignment: .leading) {
@@ -52,9 +55,13 @@ struct MoneyTransferView: View {
                     .background(Color.gray.opacity(0.2))
                     .cornerRadius(8)
                     .keyboardType(.decimalPad)
+                    .focused($focused)
             }
 
-            Button(action: viewModel.sendMoney) {
+            Button(action: {
+                viewModel.sendMoney()
+                focused = false
+            }) {
                 HStack {
                     Image(systemName: "arrow.right.circle.fill")
                     Text("Send")
@@ -77,7 +84,7 @@ struct MoneyTransferView: View {
         }
         .padding()
         .onTapGesture {
-            self.endEditing(true)  // This will dismiss the keyboard when tapping outside
+            focused = false
         }
         .alert(viewModel.alertMessage, isPresented: $viewModel.showAlert) {
             Button("OK") {

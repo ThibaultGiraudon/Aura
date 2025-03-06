@@ -18,7 +18,6 @@
 		53D4189B2AC711990070ADB1 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4189A2AC711990070ADB1 /* AuthenticationViewModel.swift */; };
 		53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4189C2AC715AA0070ADB1 /* AccountDetailViewModel.swift */; };
 		53D4189F2AC717890070ADB1 /* MoneyTransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */; };
-		53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */; };
 		CE421C012D78D03700F380BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C002D78D03700F380BD /* ContentView.swift */; };
 		CE421C072D78D8FC00F380BD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C062D78D8FC00F380BD /* Account.swift */; };
 		CE421C092D78DEE600F380BD /* TransactionRawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C082D78DEE600F380BD /* TransactionRawView.swift */; };
@@ -38,7 +37,6 @@
 		53D4189A2AC711990070ADB1 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		53D4189C2AC715AA0070ADB1 /* AccountDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailViewModel.swift; sourceTree = "<group>"; };
 		53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferViewModel.swift; sourceTree = "<group>"; };
-		53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		CE421C002D78D03700F380BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CE421C062D78D8FC00F380BD /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Account.swift; path = Aura/Account.swift; sourceTree = SOURCE_ROOT; };
 		CE421C082D78DEE600F380BD /* TransactionRawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRawView.swift; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 				53D4189C2AC715AA0070ADB1 /* AccountDetailViewModel.swift */,
 				53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */,
 				CE421C0C2D79ACD500F380BD /* API */,
-				CE421C0A2D79AC0800F380BD /* String+isValidEmail.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -134,8 +131,8 @@
 		53D418962AC70FC50070ADB1 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				CE421C0A2D79AC0800F380BD /* String+isValidEmail.swift */,
 				53D418982AC70FD80070ADB1 /* Color+Extensions.swift */,
-				53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -223,7 +220,6 @@
 				53D4189F2AC717890070ADB1 /* MoneyTransferViewModel.swift in Sources */,
 				CE421C0B2D79AC0800F380BD /* String+isValidEmail.swift in Sources */,
 				53D4188D2AC709F40070ADB1 /* AppViewModel.swift in Sources */,
-				53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */,
 				CE421C072D78D8FC00F380BD /* Account.swift in Sources */,
 				CE421C092D78DEE600F380BD /* TransactionRawView.swift in Sources */,
 				53D418992AC70FD80070ADB1 /* Color+Extensions.swift in Sources */,
