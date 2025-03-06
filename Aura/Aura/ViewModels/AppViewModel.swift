@@ -14,6 +14,7 @@ class AppViewModel: ObservableObject {
         isLogged = false
     }
     
+    @MainActor
     var authenticationViewModel: AuthenticationViewModel {
         return AuthenticationViewModel { [weak self] in
             print("Authenticate User")

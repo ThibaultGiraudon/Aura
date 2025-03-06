@@ -48,23 +48,34 @@ struct AuthenticationView: View {
                             .background(Color(UIColor.secondarySystemBackground))
                             .cornerRadius(8)
                         
+                        if viewModel.showError {
+                            Text(viewModel.alertMessage)
+                                .font(.footnote)
+                                .foregroundStyle(.red)
+                        }
+                        
                         Button(action: {
-                            // Handle authentication logic here
                             viewModel.login()
                         }) {
                             Text("Se connecter")
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .padding()
-                                .background(Color.black) // You can also change this to your pastel green color
+                                .background(viewModel.username.isEmpty || viewModel.password.isEmpty ? Color.gray : Color.black)
                                 .cornerRadius(8)
                         }
+                        .disabled(viewModel.username.isEmpty || viewModel.password.isEmpty)
                     }
                     .padding(.horizontal, 40)
                 }
         .onTapGesture {
-                    self.endEditing(true)  // This will dismiss the keyboard when tapping outside
-                }
+            self.endEditing(true)  // This will dismiss the keyboard when tapping outside
+        }
+        .alert(viewModel.alertMessage, isPresented: $viewModel.showAlert) {
+            Button("OK") {
+                viewModel.alertMessage = ""
+            }
+        }
     }
     
 }

@@ -10,6 +10,8 @@ import SwiftUI
 struct AccountDetailView: View {
     @State private var account = Account()
     @State private var extend = false
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
         VStack(spacing: 20) {
@@ -70,13 +72,18 @@ struct AccountDetailView: View {
         .onAppear {
             Task {
                 do {
-//                    enable if working here
-                    API.shared.token = "0F2090DF-F1C5-4D91-9B52-94B2885E19F2"
                     let data = try await API.shared.call(endPoint: API.AccountEndPoints.account)
                     account = try JSONDecoder().decode(Account.self, from: data)
                 } catch {
-                    print(error)
+                    alertMessage = error.localizedDescription
+                    showAlert = true
                 }
+            }
+        }
+        .alert(alertMessage, isPresented: $showAlert) {
+            Button("OK") {
+                alertMessage = ""
+                showAlert = false
             }
         }
     }

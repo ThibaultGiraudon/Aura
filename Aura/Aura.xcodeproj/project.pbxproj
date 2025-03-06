@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,16 +19,10 @@
 		53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4189C2AC715AA0070ADB1 /* AccountDetailViewModel.swift */; };
 		53D4189F2AC717890070ADB1 /* MoneyTransferViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */; };
 		53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */; };
-		CE421BEB2D78AD4300F380BD /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BEA2D78AD4300F380BD /* API.swift */; };
-		CE421BED2D78AEB100F380BD /* API+Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BEC2D78AEB100F380BD /* API+Auth.swift */; };
-		CE421BF92D78B36E00F380BD /* APi+Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BF82D78B36E00F380BD /* APi+Error.swift */; };
-		CE421BFB2D78CD9800F380BD /* API+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BFA2D78CD9800F380BD /* API+Constants.swift */; };
-		CE421BFD2D78CDC800F380BD /* API+EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BFC2D78CDC800F380BD /* API+EndPoints.swift */; };
-		CE421BFF2D78CF1E00F380BD /* TransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BFE2D78CF1E00F380BD /* TransactionDetailsView.swift */; };
 		CE421C012D78D03700F380BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C002D78D03700F380BD /* ContentView.swift */; };
-		CE421C032D78D6B500F380BD /* API+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C022D78D6B500F380BD /* API+Account.swift */; };
 		CE421C072D78D8FC00F380BD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C062D78D8FC00F380BD /* Account.swift */; };
 		CE421C092D78DEE600F380BD /* TransactionRawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C082D78DEE600F380BD /* TransactionRawView.swift */; };
+		CE421C0B2D79AC0800F380BD /* String+isValidEmail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C0A2D79AC0800F380BD /* String+isValidEmail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,17 +39,15 @@
 		53D4189C2AC715AA0070ADB1 /* AccountDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailViewModel.swift; sourceTree = "<group>"; };
 		53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyTransferViewModel.swift; sourceTree = "<group>"; };
 		53D418A02AC71B8F0070ADB1 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
-		CE421BEA2D78AD4300F380BD /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		CE421BEC2D78AEB100F380BD /* API+Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Auth.swift"; sourceTree = "<group>"; };
-		CE421BF82D78B36E00F380BD /* APi+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APi+Error.swift"; sourceTree = "<group>"; };
-		CE421BFA2D78CD9800F380BD /* API+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Constants.swift"; sourceTree = "<group>"; };
-		CE421BFC2D78CDC800F380BD /* API+EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+EndPoints.swift"; sourceTree = "<group>"; };
-		CE421BFE2D78CF1E00F380BD /* TransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsView.swift; sourceTree = "<group>"; };
 		CE421C002D78D03700F380BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CE421C022D78D6B500F380BD /* API+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Account.swift"; sourceTree = "<group>"; };
 		CE421C062D78D8FC00F380BD /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Account.swift; path = Aura/Account.swift; sourceTree = SOURCE_ROOT; };
 		CE421C082D78DEE600F380BD /* TransactionRawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRawView.swift; sourceTree = "<group>"; };
+		CE421C0A2D79AC0800F380BD /* String+isValidEmail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+isValidEmail.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE421C0C2D79ACD500F380BD /* API */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = API; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		53D418752AC7099A0070ADB1 /* Frameworks */ = {
@@ -111,7 +103,6 @@
 			children = (
 				53D418902AC70A920070ADB1 /* AuthenticationView.swift */,
 				53D418922AC70AB10070ADB1 /* AccountDetailView.swift */,
-				CE421BFE2D78CF1E00F380BD /* TransactionDetailsView.swift */,
 				53D418942AC70ABF0070ADB1 /* MoneyTransferView.swift */,
 				CE421C002D78D03700F380BD /* ContentView.swift */,
 				CE421C082D78DEE600F380BD /* TransactionRawView.swift */,
@@ -126,12 +117,8 @@
 				53D4189A2AC711990070ADB1 /* AuthenticationViewModel.swift */,
 				53D4189C2AC715AA0070ADB1 /* AccountDetailViewModel.swift */,
 				53D4189E2AC717890070ADB1 /* MoneyTransferViewModel.swift */,
-				CE421BEA2D78AD4300F380BD /* API.swift */,
-				CE421BFC2D78CDC800F380BD /* API+EndPoints.swift */,
-				CE421BFA2D78CD9800F380BD /* API+Constants.swift */,
-				CE421BF82D78B36E00F380BD /* APi+Error.swift */,
-				CE421BEC2D78AEB100F380BD /* API+Auth.swift */,
-				CE421C022D78D6B500F380BD /* API+Account.swift */,
+				CE421C0C2D79ACD500F380BD /* API */,
+				CE421C0A2D79AC0800F380BD /* String+isValidEmail.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -167,6 +154,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				CE421C0C2D79ACD500F380BD /* API */,
 			);
 			name = Aura;
 			productName = Aura;
@@ -223,23 +213,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE421BED2D78AEB100F380BD /* API+Auth.swift in Sources */,
-				CE421BFD2D78CDC800F380BD /* API+EndPoints.swift in Sources */,
-				CE421BEB2D78AD4300F380BD /* API.swift in Sources */,
 				53D4187C2AC7099A0070ADB1 /* AuraApp.swift in Sources */,
 				53D418952AC70ABF0070ADB1 /* MoneyTransferView.swift in Sources */,
 				53D4189B2AC711990070ADB1 /* AuthenticationViewModel.swift in Sources */,
 				53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */,
 				CE421C012D78D03700F380BD /* ContentView.swift in Sources */,
-				CE421BF92D78B36E00F380BD /* APi+Error.swift in Sources */,
 				53D418912AC70A920070ADB1 /* AuthenticationView.swift in Sources */,
 				53D418932AC70AB10070ADB1 /* AccountDetailView.swift in Sources */,
 				53D4189F2AC717890070ADB1 /* MoneyTransferViewModel.swift in Sources */,
-				CE421C032D78D6B500F380BD /* API+Account.swift in Sources */,
-				CE421BFB2D78CD9800F380BD /* API+Constants.swift in Sources */,
+				CE421C0B2D79AC0800F380BD /* String+isValidEmail.swift in Sources */,
 				53D4188D2AC709F40070ADB1 /* AppViewModel.swift in Sources */,
 				53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */,
-				CE421BFF2D78CF1E00F380BD /* TransactionDetailsView.swift in Sources */,
 				CE421C072D78D8FC00F380BD /* Account.swift in Sources */,
 				CE421C092D78DEE600F380BD /* TransactionRawView.swift in Sources */,
 				53D418992AC70FD80070ADB1 /* Color+Extensions.swift in Sources */,
