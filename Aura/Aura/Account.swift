@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Transaction: Codable {
-    var label: String
-    var value: Double
-}
 
 struct Account: Codable {
     var currentBalance: Double
     var transactions: [Transaction]
     
+    struct Transaction: Codable {
+        var label: String
+        var value: Double
+    }
     
     init() {
         currentBalance = 0.0

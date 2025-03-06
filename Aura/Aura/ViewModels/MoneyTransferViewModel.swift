@@ -13,13 +13,17 @@ class MoneyTransferViewModel: ObservableObject {
     @Published var transferMessage: String = ""
     @Published var showAlert = false
     @Published var alertMessage = ""
+    private var api: APIProtocol
+    
+    init(api: APIProtocol = API.shared) {
+        self.api = api
+    }
     
     @MainActor
     func sendMoney() {
         // Logic to send money - for now, we're just setting a success message.
         // You can later integrate actual logic.
         if !recipient.isEmpty && !amount.isEmpty {
-            print(recipient)
             if !recipient.isValidEmail && !recipient.isValidPhone {
                 transferMessage = "Please enter a valid email or phone."
                 return
@@ -31,7 +35,7 @@ class MoneyTransferViewModel: ObservableObject {
             }
             Task {
                 do {
-                    var _ = try await API.shared.call(endPoint: API.AccountEndPoints.transfer(recipient: recipient, amount: dAmount))
+                    var _ = try await api.call(endPoint: API.AccountEndPoints.transfer(recipient: recipient, amount: dAmount))
                     transferMessage = "Successfully transferred \(amount) to \(recipient)"
                     
                 } catch {

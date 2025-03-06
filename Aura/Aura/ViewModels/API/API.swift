@@ -7,15 +7,29 @@
 
 import Foundation
 
-class API {
+protocol URLSessionProtocol {
+    func data(for request: URLRequest) async throws -> (Data, URLResponse)
+}
+
+extension URLSession: URLSessionProtocol { }
+
+protocol APIProtocol {
+    func call(endPoint: API.EndPoint) async throws -> Data
+}
+
+class API: APIProtocol {
     @Published var token = ""
     static var shared = API()
+    private var session: URLSessionProtocol = URLSession(configuration: .default)
+    
     
     private init() {}
     
+    init(session: URLSessionProtocol) {
+        self.session = session
+    }
+    
     func call(endPoint: EndPoint) async throws -> Data {
-        let session = URLSession(configuration: .default)
-        
         guard var request = endPoint.request else {
             throw API.Error.malformed
         }
@@ -23,13 +37,13 @@ class API {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let (data, response) = try await session.data(for: request)
+        
 
         guard let httpResponse = response as? HTTPURLResponse else {
             throw API.Error.responseError
         }
         
         guard httpResponse.statusCode == 200 else {
-            print(httpResponse.statusCode)
             switch httpResponse.statusCode {
                 case 400:
                     throw API.Error.badRequest

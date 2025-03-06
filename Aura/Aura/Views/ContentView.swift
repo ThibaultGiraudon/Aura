@@ -13,7 +13,7 @@ struct ContentView: View {
         Group {
             if viewModel.isLogged {
                 TabView {
-                    AccountDetailView()
+                    AccountDetailView(viewModel: viewModel.accountDetailViewModel)
                         .tabItem {
                             Image(systemName: "person.crop.circle")
                             Text("Account")

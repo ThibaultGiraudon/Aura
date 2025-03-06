@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct AccountDetailView: View {
-    @State private var account = Account()
+    @ObservedObject var viewModel: AccountDetailViewModel
     @State private var extend = false
-    @State private var showAlert = false
-    @State private var alertMessage = ""
     
     var body: some View {
         VStack(spacing: 20) {
@@ -20,36 +18,36 @@ struct AccountDetailView: View {
                 Text("Your Balance")
                     .font(.headline)
                 Group {
-                    Text("\(account.currentBalance, specifier: "%.2f")")
+                    Text(viewModel.totalAmount)
                         .font(.system(size: 60, weight: .bold))
                     Image(systemName: "eurosign.circle.fill")
                         .resizable()
                         .scaledToFit()
                         .frame(height: 80)
                 }
-                .foregroundColor(account.currentBalance > 0 ? Color(hex: "#94A684") : .red)
+                .foregroundColor(Color(hex: "#94A684"))
             }
             .padding(.top)
             
-            // Display recent transactions
+//             Display recent transactions
             VStack(alignment: .leading, spacing: 10) {
                 Text("\(extend ? "All transactions" : "Recent Transactions")")
                     .font(.headline)
                     .padding([.horizontal])
                 if extend {
                     ScrollView(showsIndicators: false) {
-                        ForEach(account.transactions, id: \.label) { transaction in
-                            TransactionRawView(transaction: transaction)
+                        ForEach(viewModel.allTransactions, id: \.description) { transaction in
+                            TransactionRawView(label: transaction.description, value: transaction.amount)
                         }
                     }
                 } else {
-                    ForEach(account.transactions.prefix(3), id: \.label) { transaction in
-                        TransactionRawView(transaction: transaction)
+                    ForEach(viewModel.recentTransactions, id: \.description) { transaction in
+                        TransactionRawView(label: transaction.description, value: transaction.amount)
                     }
                 }
             }
             
-            // Button to see details of transactions
+//             Button to see details of transactions
             Button(action: {
                 extend.toggle()
             }) {
@@ -67,20 +65,12 @@ struct AccountDetailView: View {
             Spacer()
         }
         .onAppear {
-            Task {
-                do {
-                    let data = try await API.shared.call(endPoint: API.AccountEndPoints.account)
-                    account = try JSONDecoder().decode(Account.self, from: data)
-                } catch {
-                    alertMessage = error.localizedDescription
-                    showAlert = true
-                }
-            }
+            viewModel.getAccount()
         }
-        .alert(alertMessage, isPresented: $showAlert) {
+        .alert(viewModel.alertMessage, isPresented: $viewModel.showAlert) {
             Button("OK") {
-                alertMessage = ""
-                showAlert = false
+                viewModel.alertMessage = ""
+                viewModel.showAlert = false
             }
         }
     }
@@ -88,5 +78,5 @@ struct AccountDetailView: View {
 }
 
 #Preview {
-    AccountDetailView()
+    AccountDetailView(viewModel: AccountDetailViewModel())
 }

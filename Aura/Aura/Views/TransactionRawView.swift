@@ -8,16 +8,17 @@
 import SwiftUI
 
 struct TransactionRawView: View {
-    var transaction: Transaction
+    var label: String
+    var value: String
     var body: some View {
         HStack {
-            Image(systemName: transaction.value > 0.0 ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
-                .foregroundColor(transaction.value > 0 ? .green : .red)
-            Text(transaction.label)
+            Image(systemName: value.contains("+") ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
+                .foregroundColor(value.contains("+") ? .green : .red)
+            Text(label)
             Spacer()
-            Text("\(transaction.value > 0 ? "+" : "")\(transaction.value, specifier: "%.2f")")
+            Text(value)
                 .fontWeight(.bold)
-                .foregroundColor(transaction.value > 0 ? .green : .red)
+                .foregroundColor(value.contains("+") ? .green : .red)
         }
         .padding()
         .background(Color.gray.opacity(0.1))
@@ -27,5 +28,5 @@ struct TransactionRawView: View {
 }
 
 #Preview {
-    TransactionRawView(transaction: Transaction(label: "IKEA", value: -56.4))
+    TransactionRawView(label: "IKEA", value: "-55.50")
 }
