@@ -12,7 +12,7 @@ extension API {
         var path: String { get }
         var authorization: Authorization { get }
         var method: Method { get }
-        var queryItems: [String: String]? { get }
+        var body: Data? { get }
         var request: URLRequest? { get }
     }
     

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AccountDetailView: View {
-    @ObservedObject var viewModel: AccountDetailViewModel
+    @State private var account = Account()
+    @State private var extend = false
     
     var body: some View {
         VStack(spacing: 20) {
@@ -16,46 +17,43 @@ struct AccountDetailView: View {
             VStack(spacing: 10) {
                 Text("Your Balance")
                     .font(.headline)
-                Text(viewModel.totalAmount)
-                    .font(.system(size: 60, weight: .bold))
-                    .foregroundColor(Color(hex: "#94A684")) // Using the green color you provided
-                Image(systemName: "eurosign.circle.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 80)
-                    .foregroundColor(Color(hex: "#94A684"))
+                Group {
+                    Text("\(account.currentBalance, specifier: "%.2f")")
+                        .font(.system(size: 60, weight: .bold))
+                    Image(systemName: "eurosign.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 80)
+                }
+                .foregroundColor(account.currentBalance > 0 ? Color(hex: "#94A684") : .red)
             }
             .padding(.top)
             
             // Display recent transactions
             VStack(alignment: .leading, spacing: 10) {
-                Text("Recent Transactions")
+                Text("\(extend ? "All transactions" : "Recent Transactions")")
                     .font(.headline)
                     .padding([.horizontal])
-                ForEach(viewModel.recentTransactions, id: \.description) { transaction in
-                    HStack {
-                        Image(systemName: transaction.amount.contains("+") ? "arrow.up.right.circle.fill" : "arrow.down.left.circle.fill")
-                            .foregroundColor(transaction.amount.contains("+") ? .green : .red)
-                        Text(transaction.description)
-                        Spacer()
-                        Text(transaction.amount)
-                            .fontWeight(.bold)
-                            .foregroundColor(transaction.amount.contains("+") ? .green : .red)
+                if extend {
+                    ScrollView(showsIndicators: false) {
+                        ForEach(account.transactions, id: \.label) { transaction in
+                            TransactionRawView(transaction: transaction)
+                        }
                     }
-                    .padding()
-                    .background(Color.gray.opacity(0.1))
-                    .cornerRadius(8)
-                    .padding([.horizontal])
+                } else {
+                    ForEach(account.transactions.prefix(3), id: \.label) { transaction in
+                        TransactionRawView(transaction: transaction)
+                    }
                 }
             }
             
             // Button to see details of transactions
             Button(action: {
-                // Implement action to show transaction details
+                extend.toggle()
             }) {
                 HStack {
                     Image(systemName: "list.bullet")
-                    Text("See Transaction Details")
+                    Text("\(extend ? "Hide" : "See") Transaction Details")
                 }
                 .padding()
                 .background(Color(hex: "#94A684"))
@@ -67,12 +65,24 @@ struct AccountDetailView: View {
             Spacer()
         }
         .onTapGesture {
-                    self.endEditing(true)  // This will dismiss the keyboard when tapping outside
+            self.endEditing(true)  // This will dismiss the keyboard when tapping outside
+        }
+        .onAppear {
+            Task {
+                do {
+//                    enable if working here
+                    API.shared.token = "0F2090DF-F1C5-4D91-9B52-94B2885E19F2"
+                    let data = try await API.shared.call(endPoint: API.AccountEndPoints.account)
+                    account = try JSONDecoder().decode(Account.self, from: data)
+                } catch {
+                    print(error)
                 }
+            }
+        }
     }
         
 }
 
 #Preview {
-    AccountDetailView(viewModel: AccountDetailViewModel())
+    AccountDetailView()
 }

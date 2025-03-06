@@ -1,5 +1,5 @@
 //
-//  API+Auth.swift
+//  API+Account.swift
 //  Aura
 //
 //  Created by Thibault Giraudon on 05/03/2025.
@@ -8,40 +8,46 @@
 import Foundation
 
 extension API {
-    enum AuthEndPoints: EndPoint {
-        case authenticate(username: String, password: String)
-        case test
+    enum AccountEndPoints: EndPoint {
+        case account
+        case transfer(recipient: String, amount: Double)
         
-        var authorization: Authorization { .none }
+        var authorization: Authorization {
+            switch self {
+                case .account:
+                    return .user
+                case .transfer:
+                    return .user
+            }
+        }
 
         var method: Method {
             switch self {
-                case .authenticate:
-                    return .post
-                case .test:
+                case .account:
                     return .get
+                case .transfer:
+                    return .post
             }
         }
         
         var path: String {
             switch self {
-                case .authenticate:
-                    "/auth/"
-                case .test:
-                    "/"
+                case .account:
+                    "/account/"
+                case .transfer:
+                    "/account/transfer/"
             }
         }
         
         var body: Data? {
             switch self {
-                case .authenticate (let username, let password):
-                    let data = ["username": username, "password": password]
-                    return try? JSONSerialization.data(withJSONObject: data)
-                case .test:
+                case .account:
                     return nil
+                case .transfer(let recipient, let amount):
+                    let data: [String: Any] = ["recipient": recipient, "amount" : amount]
+                    return try? JSONSerialization.data(withJSONObject: data)
             }
         }
-
         
         var request: URLRequest? {
             var components = URLComponents()
@@ -59,6 +65,9 @@ extension API {
                 urlRequest.httpBody = body
             }
             urlRequest.httpMethod = self.method.rawValue
+            if authorization == .user {
+                urlRequest.setValue(API.shared.token, forHTTPHeaderField: "token")
+            }
         
             return urlRequest
         }

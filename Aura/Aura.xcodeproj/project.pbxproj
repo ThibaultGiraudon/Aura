@@ -25,6 +25,10 @@
 		CE421BFB2D78CD9800F380BD /* API+Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BFA2D78CD9800F380BD /* API+Constants.swift */; };
 		CE421BFD2D78CDC800F380BD /* API+EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BFC2D78CDC800F380BD /* API+EndPoints.swift */; };
 		CE421BFF2D78CF1E00F380BD /* TransactionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421BFE2D78CF1E00F380BD /* TransactionDetailsView.swift */; };
+		CE421C012D78D03700F380BD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C002D78D03700F380BD /* ContentView.swift */; };
+		CE421C032D78D6B500F380BD /* API+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C022D78D6B500F380BD /* API+Account.swift */; };
+		CE421C072D78D8FC00F380BD /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C062D78D8FC00F380BD /* Account.swift */; };
+		CE421C092D78DEE600F380BD /* TransactionRawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE421C082D78DEE600F380BD /* TransactionRawView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +51,10 @@
 		CE421BFA2D78CD9800F380BD /* API+Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Constants.swift"; sourceTree = "<group>"; };
 		CE421BFC2D78CDC800F380BD /* API+EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+EndPoints.swift"; sourceTree = "<group>"; };
 		CE421BFE2D78CF1E00F380BD /* TransactionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsView.swift; sourceTree = "<group>"; };
+		CE421C002D78D03700F380BD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CE421C022D78D6B500F380BD /* API+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Account.swift"; sourceTree = "<group>"; };
+		CE421C062D78D8FC00F380BD /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Account.swift; path = Aura/Account.swift; sourceTree = SOURCE_ROOT; };
+		CE421C082D78DEE600F380BD /* TransactionRawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionRawView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +113,8 @@
 				53D418922AC70AB10070ADB1 /* AccountDetailView.swift */,
 				CE421BFE2D78CF1E00F380BD /* TransactionDetailsView.swift */,
 				53D418942AC70ABF0070ADB1 /* MoneyTransferView.swift */,
+				CE421C002D78D03700F380BD /* ContentView.swift */,
+				CE421C082D78DEE600F380BD /* TransactionRawView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -121,6 +131,7 @@
 				CE421BFA2D78CD9800F380BD /* API+Constants.swift */,
 				CE421BF82D78B36E00F380BD /* APi+Error.swift */,
 				CE421BEC2D78AEB100F380BD /* API+Auth.swift */,
+				CE421C022D78D6B500F380BD /* API+Account.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -128,6 +139,7 @@
 		53D4188B2AC709B80070ADB1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE421C062D78D8FC00F380BD /* Account.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -218,14 +230,18 @@
 				53D418952AC70ABF0070ADB1 /* MoneyTransferView.swift in Sources */,
 				53D4189B2AC711990070ADB1 /* AuthenticationViewModel.swift in Sources */,
 				53D4189D2AC715AA0070ADB1 /* AccountDetailViewModel.swift in Sources */,
+				CE421C012D78D03700F380BD /* ContentView.swift in Sources */,
 				CE421BF92D78B36E00F380BD /* APi+Error.swift in Sources */,
 				53D418912AC70A920070ADB1 /* AuthenticationView.swift in Sources */,
 				53D418932AC70AB10070ADB1 /* AccountDetailView.swift in Sources */,
 				53D4189F2AC717890070ADB1 /* MoneyTransferViewModel.swift in Sources */,
+				CE421C032D78D6B500F380BD /* API+Account.swift in Sources */,
 				CE421BFB2D78CD9800F380BD /* API+Constants.swift in Sources */,
 				53D4188D2AC709F40070ADB1 /* AppViewModel.swift in Sources */,
 				53D418A12AC71B8F0070ADB1 /* View+Extensions.swift in Sources */,
 				CE421BFF2D78CF1E00F380BD /* TransactionDetailsView.swift in Sources */,
+				CE421C072D78D8FC00F380BD /* Account.swift in Sources */,
+				CE421C092D78DEE600F380BD /* TransactionRawView.swift in Sources */,
 				53D418992AC70FD80070ADB1 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -13,7 +13,7 @@ class API {
     
     private init() {}
     
-    func call<T: Decodable>(endPoint: EndPoint) async throws -> T {
+    func call(endPoint: EndPoint) async throws -> Data {
         let session = URLSession(configuration: .default)
         
         guard var request = endPoint.request else {
@@ -30,14 +30,6 @@ class API {
             throw URLError(.badServerResponse)
         }
         
-        do {
-            let jsonData = try JSONDecoder().decode(T.self, from: data)
-            print(jsonData)
-            return jsonData
-        } catch {
-            print("Error decoding")
-            throw error
-        }
+        return data
     }
-    
 }
