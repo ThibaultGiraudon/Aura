@@ -35,7 +35,7 @@ class MoneyTransferViewModel: ObservableObject {
             }
             Task {
                 do {
-                    var _ = try await api.call(endPoint: API.AccountEndPoints.transfer(recipient: recipient, amount: dAmount))
+                    try await api.call(endPoint: API.AccountEndPoints.transfer(recipient: recipient, amount: dAmount))
                     transferMessage = "Successfully transferred \(amount) to \(recipient)"
                     
                 } catch {

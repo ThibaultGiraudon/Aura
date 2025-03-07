@@ -33,9 +33,8 @@ class AccountDetailViewModel: ObservableObject {
     func getAccount() {
         Task {
             do {
-                let data = try await api.call(endPoint: API.AccountEndPoints.account)
+                let account: Account = try await api.call(endPoint: API.AccountEndPoints.account)
                 
-                let account = try JSONDecoder().decode(Account.self, from: data)
                 totalAmount = "€" + String(account.currentBalance)
                 account.transactions.forEach {
                     let amount = ($0.value > 0 ? "+" : "-") + "€" + String(abs($0.value))

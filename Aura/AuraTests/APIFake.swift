@@ -12,10 +12,16 @@ class APIFake: APIProtocol {
     var shouldSucceed = true
     var data = Data()
     var error: Error = URLError(.badServerResponse)
-    func call(endPoint: any Aura.API.EndPoint) async throws -> Data {
+    func call<T: Decodable>(endPoint: any Aura.API.EndPoint) async throws -> T {
         if shouldSucceed {
-            return data
+            return try JSONDecoder().decode(T.self, from: data)
         } else {
+            throw error
+        }
+    }
+    
+    func call(endPoint: any API.EndPoint) async throws {
+        if !shouldSucceed {
             throw error
         }
     }

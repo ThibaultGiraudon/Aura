@@ -14,7 +14,8 @@ protocol URLSessionProtocol {
 extension URLSession: URLSessionProtocol { }
 
 protocol APIProtocol {
-    func call(endPoint: API.EndPoint) async throws -> Data
+    func call<T: Decodable>(endPoint: API.EndPoint) async throws -> T
+    func call(endPoint: API.EndPoint) async throws 
 }
 
 class API: APIProtocol {
@@ -29,7 +30,7 @@ class API: APIProtocol {
         self.session = session
     }
     
-    func call(endPoint: EndPoint) async throws -> Data {
+    func call<T: Decodable>(endPoint: EndPoint) async throws -> T {
         guard var request = endPoint.request else {
             throw API.Error.malformed
         }
@@ -56,6 +57,38 @@ class API: APIProtocol {
             }
         }
         
-        return data
+        if data.isEmpty, T.self == Void.self {
+            return () as! T
+        }
+        
+        return try JSONDecoder().decode(T.self, from: data)
+    }
+    
+    func call(endPoint: EndPoint) async throws {
+        guard var request = endPoint.request else {
+            throw API.Error.malformed
+        }
+        
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let (data, response) = try await session.data(for: request)
+        
+
+        guard let httpResponse = response as? HTTPURLResponse else {
+            throw API.Error.responseError
+        }
+        
+        guard httpResponse.statusCode == 200 else {
+            switch httpResponse.statusCode {
+                case 400:
+                    throw API.Error.badRequest
+                case 401:
+                    throw API.Error.unauthorized
+                case 404:
+                    throw API.Error.notFound
+                default:
+                    throw API.Error.internalServerError
+            }
+        }
     }
 }

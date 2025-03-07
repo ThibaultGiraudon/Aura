@@ -32,11 +32,11 @@ class AuthenticationViewModel: ObservableObject {
                     alertMessage = "Please enter a valid email."
                     return
                 }
-                let data = try await api.call(endPoint: API.AuthEndPoints.authenticate(username: username, password: password))
+                let response: [String: String] = try await api.call(endPoint: API.AuthEndPoints.authenticate(username: username, password: password))
                 
-                let jsonData = try JSONDecoder().decode([String: String].self, from: data)
+                // TODO move in call with type
                                       
-                guard let token = jsonData["token"] else {
+                guard let token = response["token"] else {
                     throw API.Error.responseError
                 }
                 

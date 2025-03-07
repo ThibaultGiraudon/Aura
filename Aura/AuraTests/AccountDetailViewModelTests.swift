@@ -22,7 +22,7 @@ final class AccountDetailViewModelTests: XCTestCase {
         let expectation = XCTestExpectation(description: "wait")
         
         Task {
-            viewModel.getAccount()
+            await viewModel.getAccount()
             try! await Task.sleep(nanoseconds: 100_000_000)
             expectation.fulfill()
             XCTAssertEqual(viewModel.totalAmount, "€5459.32")
@@ -41,7 +41,7 @@ final class AccountDetailViewModelTests: XCTestCase {
         let expectation = XCTestExpectation(description: "wait")
         
         Task {
-            viewModel.getAccount()
+            await viewModel.getAccount()
             try! await Task.sleep(nanoseconds: 100_000_000)
             expectation.fulfill()
             XCTAssertTrue(viewModel.showAlert)

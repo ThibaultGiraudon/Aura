@@ -17,7 +17,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            _ = try await api.call(endPoint: API.AuthEndPoints.test)
+            var _: [String: String] = try await api.call(endPoint: API.AuthEndPoints.test)
             XCTFail("Request should throw error")
         } catch API.Error.unauthorized {
             
@@ -33,7 +33,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            _ = try await api.call(endPoint: API.AuthEndPoints.test)
+            var _: [String: String] = try await api.call(endPoint: API.AuthEndPoints.test)
             XCTFail("Request should throw error")
         } catch API.Error.notFound {
             
@@ -49,7 +49,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            _ = try await api.call(endPoint: API.AuthEndPoints.test)
+            var _: [String: String] = try await api.call(endPoint: API.AuthEndPoints.test)
             XCTFail("Request should throw error")
         } catch API.Error.badRequest {
             
@@ -65,7 +65,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            _ = try await api.call(endPoint: API.AuthEndPoints.test)
+            var _: [String: String] = try await api.call(endPoint: API.AuthEndPoints.test)
             XCTFail("Request should throw error")
         } catch API.Error.internalServerError {
             
@@ -81,7 +81,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            _ = try await api.call(endPoint: API.EndPointsFake.fake)
+            var _: [String: String] = try await api.call(endPoint: API.EndPointsFake.fake)
             XCTFail("Request should throw error")
         } catch API.Error.malformed {
             
@@ -97,11 +97,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            let data = try await api.call(endPoint: API.AuthEndPoints.authenticate(username: "test@aura.app", password: "test123"))
-            
-            guard let jsonData = try? JSONDecoder().decode([String: String].self, from: data) else {
-                return
-            }
+            let jsonData: [String: String] = try await api.call(endPoint: API.AuthEndPoints.authenticate(username: "test@aura.app", password: "test123"))
             
             XCTAssertEqual(jsonData, ["token": "testTokenName"])
             
@@ -127,11 +123,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            let response = try await api.call(endPoint: API.AccountEndPoints.account)
-            
-            guard let json = try? JSONDecoder().decode(Account.self, from: response) else {
-                return
-            }
+            let json: Account = try await api.call(endPoint: API.AccountEndPoints.account)
             
             guard let accountCorrectJSON = try? JSONDecoder().decode(Account.self, from: accountCorrectData!) else {
                 return
@@ -149,7 +141,7 @@ final class APITests: XCTestCase {
         let api = API(session: fakeSession)
         
         do {
-            _ = try await api.call(endPoint: API.AccountEndPoints.transfer(recipient: "test@aura.app", amount: 123.3))
+            try await api.call(endPoint: API.AccountEndPoints.transfer(recipient: "test@aura.app", amount: 123.3))
         } catch {
             XCTFail("Should not throw error")
         }
