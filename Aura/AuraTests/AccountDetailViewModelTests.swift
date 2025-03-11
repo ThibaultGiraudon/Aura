@@ -9,6 +9,7 @@ import XCTest
 @testable import Aura
 
 final class AccountDetailViewModelTests: XCTestCase {
+    
     func testGetAccountSucceed() async {
         var correctData: Data? {
             let bundle = Bundle(for: AccountDetailViewModelTests.self)
@@ -18,18 +19,10 @@ final class AccountDetailViewModelTests: XCTestCase {
         let fakeAPI = APIFake()
         fakeAPI.data = correctData!
         let viewModel = AccountDetailViewModel(api: fakeAPI)
-        
-        let expectation = XCTestExpectation(description: "wait")
-        
-        Task {
+
             await viewModel.getAccount()
-            try! await Task.sleep(nanoseconds: 100_000_000)
-            expectation.fulfill()
             XCTAssertEqual(viewModel.totalAmount, "€5459.32")
             XCTAssertEqual(viewModel.allTransactions.first!.description, "IKEA")
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
     }
     
     func testGetAccountFailedWithUnauthorized() async {
@@ -38,16 +31,9 @@ final class AccountDetailViewModelTests: XCTestCase {
         fakeAPI.error = API.Error.unauthorized
         let viewModel = AccountDetailViewModel(api: fakeAPI)
         
-        let expectation = XCTestExpectation(description: "wait")
+        await viewModel.getAccount()
+        XCTAssertTrue(viewModel.showAlert)
+        XCTAssertEqual(viewModel.alertMessage, "Unauthorized request.")
         
-        Task {
-            await viewModel.getAccount()
-            try! await Task.sleep(nanoseconds: 100_000_000)
-            expectation.fulfill()
-            XCTAssertTrue(viewModel.showAlert)
-            XCTAssertEqual(viewModel.alertMessage, "Unauthorized request.")
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
     }
 }

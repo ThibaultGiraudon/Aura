@@ -12,29 +12,29 @@ import XCTest
 final class MoneyTransferViewModelTest: XCTestCase {
     var viewModel = MoneyTransferViewModel()
     
-    func testInvalidEmailAndPhone() {
+    func testInvalidEmailAndPhone() async {
         viewModel.recipient = "invalid_user"
         viewModel.amount = "100"
         
-        viewModel.sendMoney()
+        await viewModel.sendMoney()
         
         XCTAssertEqual(viewModel.transferMessage, "Please enter a valid email or phone.")
     }
 
-    func testInvalidAmount() {
+    func testInvalidAmount() async {
         viewModel.recipient = "test@email.com"
         viewModel.amount = "invalid_amount"
         
-        viewModel.sendMoney()
+        await viewModel.sendMoney()
         
         XCTAssertEqual(viewModel.transferMessage, "Please enter a valid amount.")
     }
 
-    func testEmptyFields() {
+    func testEmptyFields() async {
         viewModel.recipient = ""
         viewModel.amount = ""
         
-        viewModel.sendMoney()
+        await viewModel.sendMoney()
         
         XCTAssertEqual(viewModel.transferMessage, "Please enter recipient and amount.")
     }
@@ -45,16 +45,8 @@ final class MoneyTransferViewModelTest: XCTestCase {
         
         viewModel.recipient = "test@email.com"
         viewModel.amount = "50.5"
-        
-        let expectation = XCTestExpectation(description: "Transfer completes")
-        
-        Task {
-            viewModel.sendMoney()
-            try! await Task.sleep(nanoseconds: 100_000_000)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
+
+        await viewModel.sendMoney()
         
         XCTAssertEqual(viewModel.transferMessage, "Successfully transferred 50.5 to test@email.com")
     }
@@ -67,16 +59,8 @@ final class MoneyTransferViewModelTest: XCTestCase {
         viewModel.recipient = "test@email.com"
         viewModel.amount = "50.5"
         
-        let expectation = XCTestExpectation(description: "Transfer completes")
-        
-        Task {
-            viewModel.sendMoney()
-            try! await Task.sleep(nanoseconds: 100_000_000)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
-        
+        await viewModel.sendMoney()
+                
         XCTAssertFalse(viewModel.alertMessage.isEmpty)
         XCTAssertTrue(viewModel.showAlert)
     }

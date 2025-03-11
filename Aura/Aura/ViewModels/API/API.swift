@@ -34,16 +34,16 @@ class API: APIProtocol {
         guard var request = endPoint.request else {
             throw API.Error.malformed
         }
-        
+
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
+
         let (data, response) = try await session.data(for: request)
-        
+
 
         guard let httpResponse = response as? HTTPURLResponse else {
             throw API.Error.responseError
         }
-        
+
         guard httpResponse.statusCode == 200 else {
             switch httpResponse.statusCode {
                 case 400:
@@ -56,7 +56,7 @@ class API: APIProtocol {
                     throw API.Error.internalServerError
             }
         }
-        
+
         if data.isEmpty, T.self == Void.self {
             return () as! T
         }

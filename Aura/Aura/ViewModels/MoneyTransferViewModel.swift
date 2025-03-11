@@ -20,7 +20,7 @@ class MoneyTransferViewModel: ObservableObject {
     }
     
     @MainActor
-    func sendMoney() {
+    func sendMoney() async {
         // Logic to send money - for now, we're just setting a success message.
         // You can later integrate actual logic.
         if !recipient.isEmpty && !amount.isEmpty {
@@ -28,20 +28,20 @@ class MoneyTransferViewModel: ObservableObject {
                 transferMessage = "Please enter a valid email or phone."
                 return
             }
+            
             amount = amount.replacingOccurrences(of: ",", with: ".")
             guard let dAmount = Double(amount) else {
                 transferMessage = "Please enter a valid amount."
                 return
             }
-            Task {
-                do {
-                    try await api.call(endPoint: API.AccountEndPoints.transfer(recipient: recipient, amount: dAmount))
-                    transferMessage = "Successfully transferred \(amount) to \(recipient)"
-                    
-                } catch {
-                    alertMessage = error.localizedDescription
-                    showAlert = true
-                }
+            
+            do {
+                try await api.call(endPoint: API.AccountEndPoints.transfer(recipient: recipient, amount: dAmount))
+                transferMessage = "Successfully transferred \(amount) to \(recipient)"
+                
+            } catch {
+                alertMessage = error.localizedDescription
+                showAlert = true
             }
         } else {
             transferMessage = "Please enter recipient and amount."

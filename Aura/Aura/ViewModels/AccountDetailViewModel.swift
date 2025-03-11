@@ -30,21 +30,19 @@ class AccountDetailViewModel: ObservableObject {
     }
     
     @MainActor
-    func getAccount() {
-        Task {
-            do {
-                let account: Account = try await api.call(endPoint: API.AccountEndPoints.account)
-                
-                totalAmount = "€" + String(account.currentBalance)
-                account.transactions.forEach {
-                    let amount = ($0.value > 0 ? "+" : "-") + "€" + String(abs($0.value))
-                    allTransactions.append(Transaction(description: $0.label, amount: amount))
-                }
-                recentTransactions = Array(allTransactions.prefix(3))
-            } catch {
-                alertMessage = error.localizedDescription
-                showAlert = true
+    func getAccount() async {
+        do {
+            let account: Account = try await api.call(endPoint: API.AccountEndPoints.account)
+            
+            totalAmount = "€" + String(account.currentBalance)
+            account.transactions.forEach {
+                let amount = ($0.value > 0 ? "+" : "-") + "€" + String(abs($0.value))
+                allTransactions.append(Transaction(description: $0.label, amount: amount))
             }
+            recentTransactions = Array(allTransactions.prefix(3))
+        } catch {
+            alertMessage = error.localizedDescription
+            showAlert = true
         }
     }
 }

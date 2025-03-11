@@ -13,16 +13,8 @@ final class AuthenticationViewModelTests: XCTestCase {
     
     func testIsValidEmail() async {
         viewModel.username = "test"
-        
-        let expectation = XCTestExpectation(description: "Wait")
-        
-        Task {
-            await viewModel.login()
-            try! await Task.sleep(nanoseconds: 100_000_000)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
+    
+        await viewModel.login()
         
         XCTAssertTrue(viewModel.showError)
         XCTAssertEqual(viewModel.alertMessage, "Please enter a valid email.")
@@ -33,16 +25,9 @@ final class AuthenticationViewModelTests: XCTestCase {
         fakeAPI.data = try! JSONSerialization.data(withJSONObject: ["token": "token"])
         let viewModel = AuthenticationViewModel({}, api: fakeAPI)
         viewModel.username = "test@aura.app"
+
+        await viewModel.login()
         
-        let expectation = XCTestExpectation(description: "Wait")
-        
-        Task {
-            await viewModel.login()
-            try! await Task.sleep(nanoseconds: 500_000_000)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
         
         XCTAssertEqual(API.shared.token, "token")
     }
@@ -53,15 +38,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel({}, api: fakeAPI)
         viewModel.username = "test@aura.app"
         
-        let expectation = XCTestExpectation(description: "Wait")
-        
-        Task {
-            await viewModel.login()
-            try! await Task.sleep(nanoseconds: 500_000_000)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await viewModel.login()
         
         XCTAssertEqual(viewModel.alertMessage, "An error occured while processing the reponse.")
     }
@@ -74,15 +51,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel({}, api: fakeAPI)
         viewModel.username = "test@aura.app"
         
-        let expectation = XCTestExpectation(description: "Wait")
-        
-        Task {
-            await viewModel.login()
-            try! await Task.sleep(nanoseconds: 500_000_000)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await viewModel.login()
         
         XCTAssertTrue(viewModel.showError)
         XCTAssertEqual(viewModel.alertMessage, "Fail to login (bad username and/or password).")
@@ -96,16 +65,8 @@ final class AuthenticationViewModelTests: XCTestCase {
         
         let viewModel = AuthenticationViewModel({}, api: fakeAPI)
         viewModel.username = "test@aura.app"
-        
-        let expectation = XCTestExpectation(description: "Wait")
-        
-        Task {
-            await viewModel.login()
-            try! await Task.sleep(nanoseconds: 500_000_000)
-            expectation.fulfill()
-        }
-        
-        await fulfillment(of: [expectation], timeout: 2.0)
+
+        await viewModel.login()
         
         XCTAssertTrue(viewModel.showAlert)
         XCTAssertEqual(viewModel.alertMessage, "Unauthorized request.")

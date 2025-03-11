@@ -59,8 +59,10 @@ struct MoneyTransferView: View {
             }
 
             Button(action: {
-                viewModel.sendMoney()
-                focused = false
+                Task {
+                    await viewModel.sendMoney()
+                    focused = false
+                }
             }) {
                 HStack {
                     Image(systemName: "arrow.right.circle.fill")

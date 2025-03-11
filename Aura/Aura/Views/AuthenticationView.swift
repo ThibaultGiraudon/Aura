@@ -59,8 +59,10 @@ struct AuthenticationView: View {
                         }
                         
                         Button(action: {
-                            focused = false
-                            viewModel.login()
+                            Task {
+                                focused = false
+                                await viewModel.login()
+                            }
                         }) {
                             Text("Se connecter")
                                 .foregroundColor(.white)

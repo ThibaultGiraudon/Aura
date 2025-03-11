@@ -23,33 +23,31 @@ class AuthenticationViewModel: ObservableObject {
     }
     
     @MainActor
-    func login() {
-        Task {
-            do {
-                alertMessage = ""
-                if !username.isValidEmail {
-                    showError = true
-                    alertMessage = "Please enter a valid email."
-                    return
-                }
-                let response: [String: String] = try await api.call(endPoint: API.AuthEndPoints.authenticate(username: username, password: password))
-                
-                // TODO move in call with type
-                                      
-                guard let token = response["token"] else {
-                    throw API.Error.responseError
-                }
-                
-                API.shared.token = String(token)
-                
-                onLoginSucceed()
-            } catch let error as API.Error where error == .badRequest {
+    func login() async {
+        do {
+            alertMessage = ""
+            if !username.isValidEmail {
                 showError = true
-                alertMessage = error.localizedDescription
-            } catch {
-                showAlert = true
-                alertMessage = error.localizedDescription
+                alertMessage = "Please enter a valid email."
+                return
             }
+            let response: [String: String] = try await api.call(endPoint: API.AuthEndPoints.authenticate(username: username, password: password))
+            
+            // TODO move in call with type
+                                  
+            guard let token = response["token"] else {
+                throw API.Error.responseError
+            }
+            
+            API.shared.token = String(token)
+            
+            onLoginSucceed()
+        } catch let error as API.Error where error == .badRequest {
+            showError = true
+            alertMessage = error.localizedDescription
+        } catch {
+            showAlert = true
+            alertMessage = error.localizedDescription
         }
     }
 }

@@ -65,7 +65,9 @@ struct AccountDetailView: View {
             Spacer()
         }
         .onAppear {
-            viewModel.getAccount()
+            Task {
+                await viewModel.getAccount()
+            }
         }
         .alert(viewModel.alertMessage, isPresented: $viewModel.showAlert) {
             Button("OK") {
