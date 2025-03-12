@@ -90,6 +90,86 @@ final class APITests: XCTestCase {
         }
     }
     
+    func testCallWithoutResponseWithUnauthorizedError() async {
+        let fakeSession = URLSessionFake()
+        fakeSession.fakeResponse = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!, statusCode: 401, httpVersion: nil, headerFields: nil)
+        
+        let api = API(session: fakeSession)
+        
+        do {
+            try await api.call(endPoint: API.AuthEndPoints.test)
+            XCTFail("Request should throw error")
+        } catch API.Error.unauthorized {
+            
+        } catch {
+            XCTFail("Erreur inattendu: \(error)")
+        }
+    }
+    
+    func testCallWithoutResponseWithNotFoundError() async {
+        let fakeSession = URLSessionFake()
+        fakeSession.fakeResponse = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!, statusCode: 404, httpVersion: nil, headerFields: nil)
+        
+        let api = API(session: fakeSession)
+        
+        do {
+            try await api.call(endPoint: API.AuthEndPoints.test)
+            XCTFail("Request should throw error")
+        } catch API.Error.notFound {
+            
+        } catch {
+            XCTFail("Erreur inattendu: \(error)")
+        }
+    }
+    
+    func testCallWithoutResponseWithBadRequestError() async {
+        let fakeSession = URLSessionFake()
+        fakeSession.fakeResponse = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!, statusCode: 400, httpVersion: nil, headerFields: nil)
+        
+        let api = API(session: fakeSession)
+        
+        do {
+            try await api.call(endPoint: API.AuthEndPoints.test)
+            XCTFail("Request should throw error")
+        } catch API.Error.badRequest {
+            
+        } catch {
+            XCTFail("Erreur inattendu: \(error)")
+        }
+    }
+    
+    func testCallWithoutResponseWithIternalError() async {
+        let fakeSession = URLSessionFake()
+        fakeSession.fakeResponse = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!, statusCode: 500, httpVersion: nil, headerFields: nil)
+        
+        let api = API(session: fakeSession)
+        
+        do {
+            try await api.call(endPoint: API.AuthEndPoints.test)
+            XCTFail("Request should throw error")
+        } catch API.Error.internalServerError {
+            
+        } catch {
+            XCTFail("Erreur inattendu: \(error)")
+        }
+    }
+    
+    func testCallWithoutResponseWithMalformedError() async {
+        let fakeSession = URLSessionFake()
+        fakeSession.fakeResponse = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!, statusCode: 400, httpVersion: nil, headerFields: nil)
+        
+        let api = API(session: fakeSession)
+        
+        do {
+            try await api.call(endPoint: API.EndPointsFake.fake)
+            XCTFail("Request should throw error")
+        } catch API.Error.malformed {
+            
+        } catch {
+            XCTFail("Erreur inattendu: \(error)")
+        }
+    }
+    
     func testAuthEndPointShouldSucceed() async {
         let fakeSession = URLSessionFake()
         fakeSession.fakeData = try! JSONSerialization.data(withJSONObject: ["token": "testTokenName"])

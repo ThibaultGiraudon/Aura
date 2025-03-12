@@ -56,10 +56,6 @@ class API: APIProtocol {
                     throw API.Error.internalServerError
             }
         }
-
-        if data.isEmpty, T.self == Void.self {
-            return () as! T
-        }
         
         return try JSONDecoder().decode(T.self, from: data)
     }
